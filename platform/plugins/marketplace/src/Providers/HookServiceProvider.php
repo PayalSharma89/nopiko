@@ -302,8 +302,8 @@ class HookServiceProvider extends ServiceProvider
                         RadioField::class,
                         RadioFieldOption::make()
                             ->label(__('Register as'))
-                            ->choices([0 => __('I am a customer'), 1 => __('I am a vendor')])
-                            ->defaultValue(0)
+                            // ->choices([0 => __('I am a customer'), 1 => __('I am a vendor')])
+                            ->choices([1 => __('I am a vendor')]) 
                     )
                     ->addAfter(
                         'is_vendor',

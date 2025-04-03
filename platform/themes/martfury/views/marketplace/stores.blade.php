@@ -2,7 +2,7 @@
     <section class="ps-store-list">
         <div class="container">
             <div class="ps-section__header">
-                <h3>{{ __('Our Stores') }}</h3>
+                <h3>{{ __('Our Associations') }}</h3>
             </div>
             <div class="ps-section__content">
                 <div class="ps-section__search row">

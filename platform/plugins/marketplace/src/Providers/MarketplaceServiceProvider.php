@@ -177,7 +177,7 @@ class MarketplaceServiceProvider extends ServiceProvider
                 ->registerItem([
                     'id' => 'marketplace.vendor.dashboard',
                     'priority' => 1,
-                    'name' => __('Dashboard'),
+                    'name' => __('Vendor dashboard'),
                     'url' => fn () => route('marketplace.vendor.dashboard'),
                     'icon' => 'ti ti-home',
                 ])

@@ -10,7 +10,6 @@
                 <div class="loader-section section-right"></div>
             </div>
         @endif
-
         {!! Theme::get('topHeader') !!}
 
         <header class="header header--1" data-sticky="{{ Theme::get('stickyHeader', theme_option('sticky_header_enabled', 'yes') == 'yes' ? 'true' : 'false') }}">
@@ -51,8 +50,12 @@
                             </form>
                         </div>
                         <div class="header__right">
-                            <div class="header__actions">
-                                {!! apply_filters('before_theme_header_actions', null) !!}
+                        <div class="header__actions" style="display: flex; align-items: center;">
+                        {!! apply_filters('before_theme_header_actions', null) !!}
+                         
+                                <!-- New Sell Now Link Before Icons -->
+                                <a class="header__extra btn-sell-now" href="{{ !auth('customer')->check() ? route('customer.register') : (auth('customer')->user()->is_vendor ? route('marketplace.vendor.dashboard') : route('marketplace.vendor.become-vendor')) }}" style="color: black; font-weight: bold; text-decoration: none; font-size: 14px; margin-right: 10px;">{{ theme_option('sell_on_site_text') ?: __('Sell Now') }}</a>
+                                <div style="display: flex; align-items: center; gap: 20px;">
                                 @if (EcommerceHelper::isCompareEnabled())
                                     <a class="header__extra btn-compare" href="{{ route('public.compare') }}"><i class="icon-chart-bars"></i><span><i>{{ Cart::instance('compare')->count() }}</i></span></a>
                                 @endif
@@ -67,6 +70,7 @@
                                         </div>
                                     </div>
                                 @endif
+                                </div>
                                 {!! apply_filters('after_theme_header_actions', null) !!}
                                 <div class="ps-block--user-header">
                                     <div class="ps-block__left"><i class="icon-user"></i></div>
@@ -88,7 +92,7 @@
                 <div class="ps-container">
                     <div class="navigation__left">
                         <div class="menu--product-categories">
-                            <div class="menu__toggle"><i class="icon-menu"></i><span> {{ __('Shop by Department') }}</span></div>
+                            <div class="menu__toggle"><i class="icon-menu"></i><span> {{ __('Shop by cause') }}</span></div>
                             <div class="menu__content" style="display: none">
                                 <ul class="menu--dropdown">
                                     {!! $categoriesDropdown ?? null !!}
@@ -103,9 +107,6 @@
                         ]) !!}
                         @if (is_plugin_active('ecommerce'))
                             <ul class="navigation__extra">
-                                @if (is_plugin_active('marketplace'))
-                                    <li><a href="{{ !auth('customer')->check() ? route('customer.register') : (auth('customer')->user()->is_vendor ? route('marketplace.vendor.dashboard') : route('marketplace.vendor.become-vendor')) }}">{{ theme_option('sell_on_site_text') ?: __('Sell On Martfury') }}</a></li>
-                                @endif
                                 @if (EcommerceHelper::isOrderTrackingEnabled())
                                     <li><a href="{{ route('public.orders.tracking') }}">{{ __('Track your order') }}</a></li>
                                 @endif
