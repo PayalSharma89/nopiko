@@ -1,0 +1,9 @@
+{
+    "id": "associations",
+    "name": "Associations",
+    "description": "Manage associations in the marketplace.",
+    "author": "Your Name",
+    "version": "1.0",
+    "namespace": "Botble\\Associations\\",
+    "provider": "Botble\\Associations\\Providers\\AssociationsServiceProvider"
+  }
