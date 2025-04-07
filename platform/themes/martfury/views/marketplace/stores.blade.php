@@ -10,16 +10,16 @@
                         <form action="{{ route('public.stores') }}" method="get">
                             <div class="form-group mb-3">
                                 <button><i class="icon-magnifier"></i></button>
-                                <input class="form-control" name="q" value="{{ BaseHelper::stringify(request()->query('q')) }}" type="text" placeholder="{{ __('Search vendor...') }}">
+                                <input class="form-control" name="q" ... placeholder="{{ __('Search association...') }}">
                             </div>
                         </form>
                     </div>
                 </div>
 
-                @include(Theme::getThemeNamespace('views.marketplace.includes.store-items'))
+                @include(Theme::getThemeNamespace('views.marketplace.includes.association-items'), ['associations' => $associations])
 
                 <div class="ps-pagination">
-                    {!! $stores->withQueryString()->links() !!}
+                    {!! $associations->withQueryString()->links() !!}
                 </div>
             </div>
         </div>

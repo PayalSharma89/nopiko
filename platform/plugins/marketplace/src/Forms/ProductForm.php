@@ -33,6 +33,8 @@ use Botble\Marketplace\Forms\Fields\CustomEditorField;
 use Botble\Marketplace\Forms\Fields\CustomImagesField;
 use Botble\Marketplace\Http\Requests\ProductRequest;
 use Botble\Marketplace\Tables\ProductVariationTable;
+use Botble\Associations\Models\Association;
+
 
 class ProductForm extends BaseProductForm
 {
@@ -110,18 +112,37 @@ class ProductForm extends BaseProductForm
                     ->addAttribute('card-body-class', 'p-0')
             )
             ->when($brands, function () use ($brands): void {
-                $this
-                    ->add(
-                        'brand_id',
-                        SelectField::class,
-                        SelectFieldOption::make()
-                            ->label(trans('plugins/ecommerce::products.form.brand'))
-                            ->choices($brands)
-                            ->searchable()
-                            ->emptyValue(trans('plugins/ecommerce::brands.select_brand'))
-                            ->allowClear()
-                    );
-            })
+                $this->add(
+                    'brand_id',
+                    SelectField::class,
+                    SelectFieldOption::make()
+                        ->label(trans('plugins/ecommerce::products.form.brand'))
+                        ->choices($brands)
+                        ->searchable()
+                        ->emptyValue(trans('plugins/ecommerce::brands.select_brand'))
+                        ->allowClear()
+                );
+            });     
+            $vendor = auth('customer')->user(); 
+            $associations = Association::query()
+                ->where('status', 1)
+                ->when($vendor->is_association, function ($query) use ($vendor) {
+                    return $query->where('vendor_id', $vendor->id); 
+                })
+                ->pluck('name', 'id')
+                ->all();
+
+            $this->add('association_id', SelectField::class, [
+                'label' => 'Association',
+                'choices' => $associations,
+                'selected' => old('association_id', $this->getModel()->association_id ?? null),
+                'attr' => [
+                    'data-placeholder' => 'Select an association',
+                    'class' => 'select-search-full',
+                    'required' => 'required', 
+                ],
+            ])
+
             ->when($productCollections, function () use ($productCollections): void {
                 $selectedProductCollections = [];
 

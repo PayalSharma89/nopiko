@@ -75,6 +75,7 @@ class Product extends BaseModel
         'maximum_order_quantity',
         'notify_attachment_updated',
         'specification_table_id',
+        'association_id',
     ];
 
     protected $appends = [
@@ -821,5 +822,9 @@ class Product extends BaseModel
 
             return $this->with_storehouse_management ? $this->quantity : 1000;
         });
+    }
+    public function association(): BelongsTo
+    {
+        return $this->belongsTo(Association::class)->withDefault();
     }
 }

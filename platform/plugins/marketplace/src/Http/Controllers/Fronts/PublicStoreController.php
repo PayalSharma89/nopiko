@@ -20,49 +20,74 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Botble\Associations\Models\Association;
+
 
 class PublicStoreController extends BaseController
 {
+    // public function getStores(Request $request)
+    // {
+    //     Theme::breadcrumb()
+    //         ->add(__('Stores'), route('public.stores'));
+
+    //     SeoHelper::setTitle(__('Stores'))->setDescription(__('Stores'));
+
+    //     $condition = [];
+
+    //     $search = BaseHelper::stringify(BaseHelper::clean($request->input('q')));
+    //     if ($search) {
+    //         $condition[] = ['name', 'LIKE', '%' . $search . '%'];
+    //     }
+
+    //     $with = ['slugable'];
+    //     if (EcommerceHelper::isReviewEnabled()) {
+    //         $with['reviews'] = function ($query): void {
+    //             $query->where([
+    //                 'ec_products.status' => BaseStatusEnum::PUBLISHED,
+    //                 'ec_reviews.status' => BaseStatusEnum::PUBLISHED,
+    //             ]);
+    //         };
+    //     }
+
+    //     $stores = Store::query()
+    //         ->wherePublished()
+    //         ->where($condition)
+    //         ->with($with)
+    //         ->withCount([
+    //             'products' => function ($query): void {
+    //                 $query
+    //                     ->where('is_variation', 0)
+    //                     ->wherePublished();
+    //             },
+    //         ])
+    //         ->orderByDesc('created_at')
+    //         ->paginate(12);
+
+    //     return Theme::scope('marketplace.stores', compact('stores'), MarketplaceHelper::viewPath('stores', false))->render();
+    // }
     public function getStores(Request $request)
     {
         Theme::breadcrumb()
             ->add(__('Stores'), route('public.stores'));
 
-        SeoHelper::setTitle(__('Stores'))->setDescription(__('Stores'));
-
-        $condition = [];
+        SeoHelper::setTitle(__('Associations'))->setDescription(__('Browse approved associations'));
 
         $search = BaseHelper::stringify(BaseHelper::clean($request->input('q')));
-        if ($search) {
-            $condition[] = ['name', 'LIKE', '%' . $search . '%'];
+
+        $query = Association::query()->where('status', 1);
+
+        if (!empty($search)) {
+            $query->where('name', 'LIKE', '%' . $search . '%');
         }
 
-        $with = ['slugable'];
-        if (EcommerceHelper::isReviewEnabled()) {
-            $with['reviews'] = function ($query): void {
-                $query->where([
-                    'ec_products.status' => BaseStatusEnum::PUBLISHED,
-                    'ec_reviews.status' => BaseStatusEnum::PUBLISHED,
-                ]);
-            };
-        }
+        $associations = $query->orderByDesc('created_at')->paginate(12);
 
-        $stores = Store::query()
-            ->wherePublished()
-            ->where($condition)
-            ->with($with)
-            ->withCount([
-                'products' => function ($query): void {
-                    $query
-                        ->where('is_variation', 0)
-                        ->wherePublished();
-                },
-            ])
-            ->orderByDesc('created_at')
-            ->paginate(12);
-
-        return Theme::scope('marketplace.stores', compact('stores'), MarketplaceHelper::viewPath('stores', false))->render();
+        return Theme::scope('marketplace.stores', compact('associations'), MarketplaceHelper::viewPath('stores', false))->render();
     }
+
+    
+
+
 
     public function getStore(
         string $key,
