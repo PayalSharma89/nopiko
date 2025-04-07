@@ -1,0 +1,7 @@
+{
+    "name": "vendor/package",
+    "description": "A sample package",
+    "require": {
+      "php": "^7.3|^8.0"
+    }
+  }

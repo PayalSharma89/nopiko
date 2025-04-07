@@ -42,7 +42,7 @@ class ContactStoreForm extends FormFront
                 EmailField::class,
                 EmailFieldOption::make()
                     ->label(false)
-                    ->placeholder(__('Your email address'))
+                    ->placeholder(__('Your email addressssssssssss'))
                     ->disabled((bool) $customer?->email)
                     ->value($customer?->email),
             )
