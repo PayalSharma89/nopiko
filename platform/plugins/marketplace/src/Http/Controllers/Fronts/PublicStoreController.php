@@ -21,6 +21,8 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Botble\Associations\Models\Association;
+use Botble\Ecommerce\Models\Product;
+use Botble\Ecommerce\Models\ProductCategory;
 
 
 class PublicStoreController extends BaseController
@@ -72,21 +74,74 @@ class PublicStoreController extends BaseController
 
         SeoHelper::setTitle(__('Associations'))->setDescription(__('Browse approved associations'));
 
-        $search = BaseHelper::stringify(BaseHelper::clean($request->input('q')));
-
         $query = Association::query()->where('status', 1);
 
-        if (!empty($search)) {
-            $query->where('name', 'LIKE', '%' . $search . '%');
+        if ($request->filled('q')) {
+            $query->where('name', 'LIKE', '%' . $request->input('q') . '%');
+        }
+
+        if ($request->filled('cause')) {
+            $query->whereJsonContains('causes', (int)$request->input('cause'));
         }
 
         $associations = $query->orderByDesc('created_at')->paginate(12);
 
-        return Theme::scope('marketplace.stores', compact('associations'), MarketplaceHelper::viewPath('stores', false))->render();
+        // Get all cause IDs used in Associations
+        $causeIds = Association::pluck('causes')->flatten()->unique()->toArray();
+
+        // Get Cause Names from Categories Table
+        $causesList = ProductCategory::whereIn('id', $causeIds)->pluck('name', 'id')->toArray();
+
+        return Theme::scope('marketplace.stores', [
+            'associations' => $associations,
+            'causesList' => $causesList,
+        ], MarketplaceHelper::viewPath('stores', false))->render();
     }
 
     
 
+    
+    // PublicStoreController.php
+
+    public function associationDetail($id, Request $request)
+    {
+        $association = Association::query()
+            ->where('status', 1)
+            ->where('id', $id)
+            ->firstOrFail();
+
+        $products = Product::query()
+            ->where('status', 'published')
+            ->where('association_id', $association->id);
+
+        if ($request->filled('q')) {
+            $products->where('name', 'LIKE', '%' . $request->input('q') . '%');
+        }
+
+        $products = $products->orderBy('created_at', 'desc')->paginate(12);
+
+        $store = Store::query()
+            ->wherePublished()
+            ->with(['slugable', 'metadata', 'association'])
+            ->firstOrFail();
+
+        SeoHelper::setTitle($association->name)
+            ->setDescription(Str::limit($association->description, 120));
+
+        Theme::breadcrumb()
+            ->add(__('Home'), route('public.index'))
+            ->add(__('Associations'), route('associations.index')) 
+            ->add($association->name);
+
+        return Theme::scope('marketplace.association-detail', [
+            'association' => $association,
+            'products'    => $products,
+            'store'       => $store,
+        ])->render();
+    }
+
+
+    
 
 
     public function getStore(

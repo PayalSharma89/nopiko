@@ -122,16 +122,23 @@ class ProductForm extends BaseProductForm
                         ->emptyValue(trans('plugins/ecommerce::brands.select_brand'))
                         ->allowClear()
                 );
-            });     
-            $vendor = auth('customer')->user(); 
-            $associations = Association::query()
+            });
+            
+            $vendor = auth('customer')->user();
+            
+            $associationsData = Association::query()
                 ->where('status', 1)
                 ->when($vendor->is_association, function ($query) use ($vendor) {
                     return $query->where('vendor_id', $vendor->id); 
                 })
-                ->pluck('name', 'id')
-                ->all();
-
+                ->get(['id', 'name', 'commission']);
+            
+            $associations = $associationsData->mapWithKeys(function ($association) {
+                return [
+                    $association->id => $association->name . ' (Commission: ' . $association->commission . '%)',
+                ];
+            })->all();
+            
             $this->add('association_id', SelectField::class, [
                 'label' => 'Association',
                 'choices' => $associations,
@@ -139,10 +146,10 @@ class ProductForm extends BaseProductForm
                 'attr' => [
                     'data-placeholder' => 'Select an association',
                     'class' => 'select-search-full',
-                    'required' => 'required', 
+                    'required' => 'required',
                 ],
-            ])
-
+            ])            
+            
             ->when($productCollections, function () use ($productCollections): void {
                 $selectedProductCollections = [];
 

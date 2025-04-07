@@ -185,7 +185,32 @@ class AssociationsController extends Controller
 
         return redirect()->route('associations.index')->with('success', 'Associations imported successfully.');
     }
-
+    public function exportJson()
+    {
+        $associations = Association::all()->map(function ($item) {
+            return [
+                'name' => $item->name,
+                'description' => $item->description,
+                'type' => $item->type,
+                'activity' => $item->activity,
+                'location' => $item->location,
+                'adresse' => $item->address,
+                'email' => $item->email,
+                'phone' => $item->phone,
+                'website' => $item->website,
+                'commission' => $item->commission,
+                'status' => $item->status,
+                'causes' => json_decode($item->causes, true) ?? [],
+            ];
+        });
+    
+        $fileName = 'associations_export_' . now()->format('Y_m_d_H_i_s') . '.json';
+    
+        return response()->streamDownload(function () use ($associations) {
+            echo json_encode($associations, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        }, $fileName);
+    }
+    
     public function updateStatus(Request $request) {
         $request->validate([
             'id' => 'required|exists:associations,id',
