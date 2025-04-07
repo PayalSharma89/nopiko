@@ -59,11 +59,11 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Causes</label>
+                    <label class="form-label">Causes (Categories)</label>
                     <select name="causes[]" class="form-select" multiple>
-                        <option value="Children" {{ in_array('Children', $association->causes ?? []) ? 'selected' : '' }}>Children</option>
-                        <option value="Environment" {{ in_array('Environment', $association->causes ?? []) ? 'selected' : '' }}>Environment</option>
-                        <option value="Poverty" {{ in_array('Poverty', $association->causes ?? []) ? 'selected' : '' }}>Poverty</option>
+                        @foreach ($categories as $id => $name)
+                            <option value="{{ $id }}" {{ in_array($id, $selectedCauses) ? 'selected' : '' }}>{{ $name }}</option>
+                        @endforeach
                     </select>
                 </div>
 
@@ -76,7 +76,7 @@
                     <label class="form-label">Upload Image</label>
                     <input type="file" name="image" class="form-control">
                     @if($association->image)
-                        <img src="{{ asset($association->image) }}" alt="Association Image" class="mt-2" width="100">
+                        <img src="{{ asset('storage/' . $association->image) }}" alt="Association Image" class="mt-2 rounded" width="100">
                     @endif
                 </div>
 
@@ -84,7 +84,7 @@
                     <label class="form-label">Upload Background</label>
                     <input type="file" name="background" class="form-control">
                     @if($association->background)
-                        <img src="{{ asset($association->background) }}" alt="Background Image" class="mt-2" width="100">
+                        <img src="{{ asset('storage/' . $association->background) }}" alt="Background Image" class="mt-2 rounded" width="100">
                     @endif
                 </div>
 

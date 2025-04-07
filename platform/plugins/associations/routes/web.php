@@ -8,7 +8,7 @@ Route::group(['prefix' => 'admin/marketplaces/settings', 'middleware' => ['web',
     Route::get('/associations/create', [AssociationsController::class, 'create'])->name('associations.create');
     Route::post('/associations/store', [AssociationsController::class, 'store'])->name('associations.store');
     Route::get('/associations/edit/{id}', [AssociationsController::class, 'edit'])->name('associations.edit');
-    Route::post('/associations/update/{id}', [AssociationsController::class, 'update'])->name('associations.update');
+    Route::put('/associations/update/{id}', [AssociationsController::class, 'update'])->name('associations.update');
     Route::delete('/associations/delete/{id}', [AssociationsController::class, 'destroy'])->name('associations.delete');
     Route::post('/associations/import', [AssociationsController::class, 'importJson'])->name('associations.import');
     

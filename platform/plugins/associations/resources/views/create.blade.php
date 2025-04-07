@@ -57,14 +57,18 @@
                     </select>
                 </div>
 
+                <!-- start Here add casuses -->
                 <div class="mb-3">
-                    <label class="form-label">Causes</label>
+                    <label class="form-label">Causes (Categories & Tags)</label>
                     <select name="causes[]" class="form-select" multiple>
-                        <option value="Children">Children</option>
-                        <option value="Environment">Environment</option>
-                        <option value="Poverty">Poverty</option>
+                        @foreach ($categories as $id => $name)
+                            <option value="category:{{ $id }}">{{ $name }} (Category)</option>
+                        @endforeach
                     </select>
+                    <small class="form-text text-muted">Hold Ctrl (Cmd on Mac) to select multiple causes.</small>
                 </div>
+
+                <!-- end Here add casuses -->
 
                 <div class="mb-3 form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="status" name="status" value="1">

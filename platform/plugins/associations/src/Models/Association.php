@@ -28,7 +28,8 @@ class Association extends Model {
         'communication', 
         'commission', 
         'status',
-        'approval_status'
+        'approval_status',
+        'causes'
     ];
 
     /**
@@ -67,5 +68,9 @@ class Association extends Model {
     public function scopeApproved($query)
     {
         return $query->where('approval_status', 'approved');
+    }
+    public function donations()
+    {
+        return $this->hasMany(AssociationDonation::class);
     }
 }

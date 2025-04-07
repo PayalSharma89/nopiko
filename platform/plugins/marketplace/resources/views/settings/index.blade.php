@@ -1,9 +1,9 @@
 @extends(BaseHelper::getAdminMasterLayoutTemplate())
 
 @section('content')
+    <a class="btn btn-primary" href="{{ route('associations.index') }}">Associations</a>
     {!! $form->renderForm() !!}
 @stop
-
 @push('footer')
     <x-core::custom-template id="commission-setting-item-template">
         <div class="row commission-setting-item" id="commission-setting-item-__index__">
