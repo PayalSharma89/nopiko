@@ -27,6 +27,10 @@ Route::group([
         $slugPrefix = SlugHelper::getPrefix(Store::class, 'stores');
 
         Route::get($slugPrefix, [PublicStoreController::class, 'getStores'])->name('public.stores');
+
+        Route::get('association/{id}', [PublicStoreController::class, 'associationDetail'])
+        ->name('association.detail');
+
         Route::get("$slugPrefix/{slug}", [PublicStoreController::class, 'getStore'])->name('public.store');
 
         Route::prefix('ajax/stores')

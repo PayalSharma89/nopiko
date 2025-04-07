@@ -34,7 +34,12 @@
                 @endif
 
                 {{-- Visit Store Button --}}
-                <a class="ps-btn" href="{{ $association->url }}">{{ __('Visit Store') }}</a>
+                <a href="{{ route('association.detail', $association->id) }}" class="btn btn-primary">
+                    View Details
+                </a>
+               
+
+
 
             </div>
         </div>

@@ -97,15 +97,13 @@ class RegisterForm extends AuthForm
                 'agree_terms_and_policy',
                 OnOffCheckboxField::class,
                 CheckboxFieldOption::make()
+                    ->value(1) 
                     ->when(
                         $privacyPolicyUrl = Theme::termAndPrivacyPolicyUrl(),
                         function (CheckboxFieldOption $fieldOption, string $url): void {
                             $fieldOption->label(__('I agree to the :link', ['link' => Html::link($url, __('Terms and Privacy Policy'), attributes: ['class' => 'text-decoration-underline', 'target' => '_blank'])]));
                         }
                     )
-                    // ->when(! $privacyPolicyUrl, function (CheckboxFieldOption $fieldOption): void {
-                    //     $fieldOption->label(__('I agree to the Terms and Privacy Policy'));
-                    // })
                     ->when(! $privacyPolicyUrl, function (CheckboxFieldOption $fieldOption): void {
                         $fieldOption->label(__('
                             <a href="https://martfury.botble.com/terms-of-use" target="_blank" style="text-decoration: none; color: inherit;">
@@ -114,6 +112,7 @@ class RegisterForm extends AuthForm
                         ));
                     })
             )
+            
             ->submitButton(__('Register'), 'ti ti-arrow-narrow-right')
             ->add(
                 'login',

@@ -46,6 +46,7 @@
                                 @if($association->approval_status === 'pending')
                                 <form action="{{ route('associations.approve', $association->id) }}" method="POST">
                                     @csrf
+                                    @method('PATCH')
                                     <button type="submit" class="btn btn-sm btn-success">Approve</button>
                                 </form>
 
@@ -79,7 +80,6 @@
             </table>
         </div>
     </div>
-
     <!-- JSON Import Modal -->
     <div class="modal fade" id="importJsonModal" tabindex="-1" aria-labelledby="importJsonModalLabel" aria-hidden="true">
         <div class="modal-dialog">
