@@ -1,4 +1,4 @@
-import '@tabler/core/src/js/src/autosize'
+import '@tabler/core/dist/js/autosize'
 import '@tabler/core/src/js/src/dropdown'
 import '@tabler/core/src/js/src/tooltip'
 import '@tabler/core/src/js/src/popover'

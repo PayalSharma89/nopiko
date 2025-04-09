@@ -1,46 +1,36 @@
 <div class="row">
     @forelse ($associations as $association)
         <div class="col-md-4 mb-4">
-            <div class="ps-block--store p-4 border rounded h-100 text-center">
+            <div class="card h-100 border-0 shadow-sm hover-shadow-lg transition rounded-4 text-center">
 
                 {{-- Image --}}
-                @if ($association->image)
-                    <div class="mb-3">
-                        <img src="{{ RvMedia::getImageUrl($association->image, 'thumb') }}"
-                             alt="{{ $association->name }}"
-                             class="img-fluid rounded"
-                             style="max-height: 150px;">
-                    </div>
-                @else
-                    <div class="mb-3">
-                        <img src="{{ RvMedia::getImageUrl(null) }}"
-                             alt="No Image"
-                             class="img-fluid rounded"
-                             style="max-height: 150px;">
-                    </div>
-                @endif
+                <div class="position-relative overflow-hidden rounded-top-4" style="height: 180px; background-color: #f9f9f9;">
+                    <img src="{{ RvMedia::getImageUrl($association->image, 'thumb') }}"
+                         alt="{{ $association->name }}"
+                         class="img-fluid h-100 w-100 object-fit-cover">
+                </div>
 
-                {{-- Name --}}
-                <h5 class="fw-bold">{{ $association->name }}</h5>
+                <div class="card-body p-4 d-flex flex-column justify-content-between">
 
-                {{-- Description --}}
-                <p class="text-muted">{{ Str::limit($association->description, 100) }}</p>
+                    {{-- Name --}}
+                    <h5 class="fw-semibold mb-2">{{ $association->name }}</h5>
 
-                {{-- Location (optional) --}}
-                @if ($association->location)
-                    <p class="text-sm text-secondary">
-                        <i class="fas fa-map-marker-alt me-1"></i> {{ $association->location }}
-                    </p>
-                @endif
+                    {{-- Description --}}
+                    <p class="text-muted small mb-3">{{ Str::limit($association->description, 100) }}</p>
 
-                {{-- Visit Store Button --}}
-                <a href="{{ route('association.detail', $association->id) }}" class="btn btn-primary">
-                    View Details
-                </a>
-               
+                    {{-- Location --}}
+                    @if ($association->location)
+                        <p class="text-secondary small">
+                            <i class="fas fa-map-marker-alt me-1 text-danger"></i> {{ $association->location }}
+                        </p>
+                    @endif
 
+                    {{-- Button --}}
+                    <a href="{{ route('association.detail', $association->id) }}" class="btn btn-outline-primary w-100 mt-3 rounded-pill">
+                        View Details
+                    </a>
 
-
+                </div>
             </div>
         </div>
     @empty

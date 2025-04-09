@@ -81,22 +81,38 @@ class PublicStoreController extends BaseController
         }
 
         if ($request->filled('cause')) {
-            $query->whereJsonContains('causes', (int)$request->input('cause'));
+            $causeId = (int)$request->input('cause');
+
+            // Get all association IDs from products having this cause
+            $associationIds = Product::whereHas('categories', function ($q) use ($causeId) {
+                $q->where('id', $causeId);
+            })->pluck('association_id')->unique()->toArray();
+
+            $query->whereIn('id', $associationIds);
         }
 
         $associations = $query->orderByDesc('created_at')->paginate(12);
 
-        // Get all cause IDs used in Associations
-        $causeIds = Association::pluck('causes')->flatten()->unique()->toArray();
+        // Prepare Causes List
+        $causeIds = Association::where('status', 1)
+            ->pluck('causes')
+            ->flatten()
+            ->map(fn($item) => json_decode($item, true))
+            ->flatten()
+            ->unique()
+            ->toArray();
 
-        // Get Cause Names from Categories Table
-        $causesList = ProductCategory::whereIn('id', $causeIds)->pluck('name', 'id')->toArray();
+        $causesList = ProductCategory::whereIn('id', $causeIds)
+            ->pluck('name', 'id')
+            ->toArray();
 
         return Theme::scope('marketplace.stores', [
             'associations' => $associations,
             'causesList' => $causesList,
         ], MarketplaceHelper::viewPath('stores', false))->render();
     }
+
+
 
     
 
@@ -228,12 +244,28 @@ class PublicStoreController extends BaseController
                     'marketplace.store.edit'
                 );
         }
+        $productIds = Product::where('store_id', $store->id)
+            ->pluck('association_id')
+            ->filter() 
+            ->unique();
 
+        $causeIds = Association::whereIn('id', $productIds)
+            ->pluck('causes') 
+            ->flatten()
+            ->map(fn($item) => json_decode($item, true))
+            ->flatten()
+            ->unique()
+            ->toArray();
+
+        $causesList = ProductCategory::whereIn('id', $causeIds)
+            ->pluck('name', 'id')
+            ->toArray();
+        
         $contactForm = ContactStoreForm::createFromArray(['id' => $store->getKey()]);
 
         return Theme::scope(
             'marketplace.store',
-            compact('store', 'products', 'contactForm'),
+            compact('store', 'products', 'contactForm','causesList'),
             MarketplaceHelper::viewPath('store', false)
         )->render();
     }

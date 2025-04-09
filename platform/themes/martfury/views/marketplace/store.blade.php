@@ -6,8 +6,9 @@
                 background-size: cover;
                 background-position: center;background-color: #2f2f2f;" @else style="background-color: #2f2f2f;" @endif>
                 <div class="ps-block__user" @if ($coverImage) style="background: rgba(0, 0, 0, 0.3)" @endif>
-                    <div class="ps-block__user-avatar">
-                        <img src="{{ $store->logo_url }}" alt="{{ $store->name }}">
+                    <div class="ps-block__user-avatar" style="width: 120px; height: 120px;">
+                    <img src="{{ $store->logo_url }}" alt="{{ $store->name }}"
+                    style="width: 100%; height: 100%; object-fit: cover;">
                         @if (EcommerceHelper::isReviewEnabled())
                             <div class="rating_wrap">
                                 <div class="rating">
@@ -27,6 +28,15 @@
                         @endif
                         @if (!MarketplaceHelper::hideStoreEmail() && $store->email)
                             <p><i class="icon-envelope" @if ($coverImage) style="color: #fff" @endif></i>&nbsp;<a href="mailto:{{ $store->email }}">{{ $store->email }}</a></p>
+                        @endif
+                        @if (!empty($causesList))
+                            <p>
+                                <i class="icon-heart" @if ($coverImage) style="color: #fff" @endif></i>&nbsp;
+
+                                @foreach ($causesList as $causeName)
+                                    <span class="badge bg-secondary" @if ($coverImage) style="color: #fff" @endif>{{ $causeName }}{{ !$loop->last ? ',' : '' }}</span>
+                                @endforeach
+                            </p>
                         @endif
                     </div>
                 </div>
@@ -73,6 +83,8 @@
                                 <p>{{ __('All messages are recorded and spam is not tolerated. Your email address will be shown to the recipient.') }}</p>
                                 {!!
                                     $contactForm
+                                    ->remove('name')
+                                    ->remove('email')
                                     ->setFormOption('class', 'ps-form--contact-us contact-form bb-contact-store-form')
                                     ->setFormInputClass('form-control')
                                     ->setFormLabelClass('d-none sr-only')
