@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "abafe33a295fa86bb182dcdf1d09a545",
+    "content-hash": "9b2bbec143f9063773b8d2d82e32d9b0",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -62,16 +62,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.342.21",
+            "version": "3.342.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "f4d501414c553ddeea2efc9c77f72e58bd899823"
+                "reference": "4f5276e14b6d7ee21859aaf54aa0e8f5367ba0d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/f4d501414c553ddeea2efc9c77f72e58bd899823",
-                "reference": "f4d501414c553ddeea2efc9c77f72e58bd899823",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/4f5276e14b6d7ee21859aaf54aa0e8f5367ba0d4",
+                "reference": "4f5276e14b6d7ee21859aaf54aa0e8f5367ba0d4",
                 "shasum": ""
             },
             "require": {
@@ -153,9 +153,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.342.21"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.342.22"
             },
-            "time": "2025-04-04T18:20:53+00:00"
+            "time": "2025-04-07T18:29:40+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -1603,26 +1603,29 @@
         },
         {
             "name": "doctrine/deprecations",
-            "version": "1.1.4",
+            "version": "1.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/deprecations.git",
-                "reference": "31610dbb31faa98e6b5447b62340826f54fbc4e9"
+                "reference": "459c2f5dd3d6a4633d3b5f46ee2b1c40f57d3f38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/deprecations/zipball/31610dbb31faa98e6b5447b62340826f54fbc4e9",
-                "reference": "31610dbb31faa98e6b5447b62340826f54fbc4e9",
+                "url": "https://api.github.com/repos/doctrine/deprecations/zipball/459c2f5dd3d6a4633d3b5f46ee2b1c40f57d3f38",
+                "reference": "459c2f5dd3d6a4633d3b5f46ee2b1c40f57d3f38",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1 || ^8.0"
             },
+            "conflict": {
+                "phpunit/phpunit": "<=7.5 || >=13"
+            },
             "require-dev": {
-                "doctrine/coding-standard": "^9 || ^12",
-                "phpstan/phpstan": "1.4.10 || 2.0.3",
+                "doctrine/coding-standard": "^9 || ^12 || ^13",
+                "phpstan/phpstan": "1.4.10 || 2.1.11",
                 "phpstan/phpstan-phpunit": "^1.0 || ^2",
-                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.5",
+                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.6 || ^10.5 || ^11.5 || ^12",
                 "psr/log": "^1 || ^2 || ^3"
             },
             "suggest": {
@@ -1642,9 +1645,9 @@
             "homepage": "https://www.doctrine-project.org/",
             "support": {
                 "issues": "https://github.com/doctrine/deprecations/issues",
-                "source": "https://github.com/doctrine/deprecations/tree/1.1.4"
+                "source": "https://github.com/doctrine/deprecations/tree/1.1.5"
             },
-            "time": "2024-12-07T21:18:45+00:00"
+            "time": "2025-04-07T20:06:18+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -3379,6 +3382,63 @@
                 }
             ],
             "time": "2023-04-04T22:05:31+00:00"
+        },
+        {
+            "name": "ladumor/laravel-pwa",
+            "version": "v0.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/shailesh-ladumor/laravel-pwa.git",
+                "reference": "1867899d6916803aef7ea02f489597555cc4ab02"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/shailesh-ladumor/laravel-pwa/zipball/1867899d6916803aef7ea02f489597555cc4ab02",
+                "reference": "1867899d6916803aef7ea02f489597555cc4ab02",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": ">=5.4",
+                "php": ">=5.6"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "LaravelPwa": "Ladumor\\LaravelPwa\\LaravelPwa"
+                    },
+                    "providers": [
+                        "\\Ladumor\\LaravelPwa\\PWAServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ladumor\\LaravelPwa\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Shailesh Ladumor",
+                    "email": "shaileshmladumor@gmail.com"
+                }
+            ],
+            "description": "this package used for the make pwa website.",
+            "keywords": [
+                "laravel",
+                "laravel-pwa",
+                "php",
+                "pwa-laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/shailesh-ladumor/laravel-pwa/issues",
+                "source": "https://github.com/shailesh-ladumor/laravel-pwa/tree/v0.0.4"
+            },
+            "time": "2023-09-02T13:09:30+00:00"
         },
         {
             "name": "laravel/framework",
@@ -11438,16 +11498,16 @@
         },
         {
             "name": "driftingly/rector-laravel",
-            "version": "2.0.2",
+            "version": "2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/driftingly/rector-laravel.git",
-                "reference": "f0e3a9e2c92ff760730d1af34fbdc43f51f3b868"
+                "reference": "837066b7911cd2bec43198d93d76b228a21c464c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/driftingly/rector-laravel/zipball/f0e3a9e2c92ff760730d1af34fbdc43f51f3b868",
-                "reference": "f0e3a9e2c92ff760730d1af34fbdc43f51f3b868",
+                "url": "https://api.github.com/repos/driftingly/rector-laravel/zipball/837066b7911cd2bec43198d93d76b228a21c464c",
+                "reference": "837066b7911cd2bec43198d93d76b228a21c464c",
                 "shasum": ""
             },
             "require": {
@@ -11467,9 +11527,9 @@
             "description": "Rector upgrades rules for Laravel Framework",
             "support": {
                 "issues": "https://github.com/driftingly/rector-laravel/issues",
-                "source": "https://github.com/driftingly/rector-laravel/tree/2.0.2"
+                "source": "https://github.com/driftingly/rector-laravel/tree/2.0.3"
             },
-            "time": "2025-01-17T18:07:03+00:00"
+            "time": "2025-04-05T17:44:00+00:00"
         },
         {
             "name": "fakerphp/faker",
@@ -12814,16 +12874,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "11.5.15",
+            "version": "11.5.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "4b6a4ee654e5e0c5e1f17e2f83c0f4c91dee1f9c"
+                "reference": "fd2e863a2995cdfd864fb514b5e0b28b09895b5c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/4b6a4ee654e5e0c5e1f17e2f83c0f4c91dee1f9c",
-                "reference": "4b6a4ee654e5e0c5e1f17e2f83c0f4c91dee1f9c",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/fd2e863a2995cdfd864fb514b5e0b28b09895b5c",
+                "reference": "fd2e863a2995cdfd864fb514b5e0b28b09895b5c",
                 "shasum": ""
             },
             "require": {
@@ -12895,7 +12955,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/11.5.15"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/11.5.17"
             },
             "funding": [
                 {
@@ -12911,7 +12971,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-03-23T16:02:11+00:00"
+            "time": "2025-04-08T07:59:11+00:00"
         },
         {
             "name": "rector/rector",

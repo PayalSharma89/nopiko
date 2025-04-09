@@ -18,7 +18,7 @@
                     @if (is_plugin_active('ecommerce'))
                         <div class="header__left">
                             <div class="menu--product-categories">
-                                <div class="menu__toggle"><i class="icon-menu"></i><span> {{ __('Shop by Department') }}</span></div>
+                                <div class="menu__toggle"><i class="icon-menu"></i><span> {{ __('Shop by cause') }}</span></div>
                                 <div class="menu__content" style="display: none">
                                     <ul class="menu--dropdown">
                                         @php
