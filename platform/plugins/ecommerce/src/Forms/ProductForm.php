@@ -40,6 +40,7 @@ use Botble\Ecommerce\Models\ProductVariation;
 use Botble\Ecommerce\Models\SpecificationTable;
 use Botble\Ecommerce\Models\Tax;
 use Botble\Ecommerce\Tables\ProductVariationTable;
+use Botble\Associations\Models\Association;
 
 class ProductForm extends FormAbstract
 {
@@ -136,7 +137,32 @@ class ProductForm extends FormAbstract
                             ->emptyValue(trans('plugins/ecommerce::brands.select_brand'))
                             ->allowClear()
                     );
-            })
+            });
+            $vendor = auth('customer')->user();
+            
+            $associationsData = Association::query()
+                ->where('status', 1)
+                ->when($vendor->is_association, function ($query) use ($vendor) {
+                    return $query->where('vendor_id', $vendor->id); 
+                })
+                ->get(['id', 'name', 'commission']);
+            
+            $associations = $associationsData->mapWithKeys(function ($association) {
+                return [
+                    $association->id => $association->name . ' (Commission: ' . $association->commission . '%)',
+                ];
+            })->all();
+            
+            $this->add('association_id', SelectField::class, [
+                'label' => 'Association',
+                'choices' => $associations,
+                'selected' => old('association_id', $this->getModel()->association_id ?? null),
+                'attr' => [
+                    'data-placeholder' => 'Select an association',
+                    'class' => 'select-search-full',
+                    'required' => 'required',
+                ],
+            ])   
             ->add(
                 'image',
                 MediaImageField::class,

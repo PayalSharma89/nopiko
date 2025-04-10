@@ -10,7 +10,7 @@ use Botble\Ecommerce\Models\Customer;
 use Botble\Ecommerce\Models\Discount;
 use Botble\Ecommerce\Models\Order;
 use Botble\Ecommerce\Models\Product;
-use Botble\Associations\Models\association;
+use Botble\Associations\Models\Association;
 use Botble\Ecommerce\Models\QueryBuilders\StoreQueryBuilder;
 use Botble\Ecommerce\Traits\LocationTrait;
 use Botble\Marketplace\Enums\StoreStatusEnum;

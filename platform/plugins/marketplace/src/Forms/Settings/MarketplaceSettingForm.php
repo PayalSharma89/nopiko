@@ -1,7 +1,5 @@
 <?php
-
 namespace Botble\Marketplace\Forms\Settings;
-
 use Botble\Base\Facades\Assets;
 use Botble\Base\Forms\FieldOptions\CheckboxFieldOption;
 use Botble\Base\Forms\FieldOptions\MultiChecklistFieldOption;
@@ -15,29 +13,23 @@ use Botble\Marketplace\Http\Requests\MarketPlaceSettingFormRequest;
 use Botble\Marketplace\Models\Store;
 use Botble\Media\Facades\RvMedia;
 use Botble\Setting\Forms\SettingForm;
-
 class MarketplaceSettingForm extends SettingForm
 {
     public function setup(): void
     {
         parent::setup();
-
         Assets::addStylesDirectly('vendor/core/core/base/libraries/tagify/tagify.css')
             ->addScriptsDirectly([
                 'vendor/core/core/base/libraries/tagify/tagify.js',
                 'vendor/core/core/base/js/tags.js',
                 'vendor/core/plugins/marketplace/js/marketplace-setting.js',
             ]);
-
         $commissionEachCategory = [];
-
         if (MarketplaceHelper::isCommissionCategoryFeeBasedEnabled()) {
             $commissionEachCategory = Store::getCommissionEachCategory();
         }
-
         $allowedMimeTypes = RvMedia::getConfig('allowed_mime_types');
         $allowedMimeTypes = explode(',', $allowedMimeTypes);
-
         $this
             ->setSectionTitle('Marketplace Settings')
             ->setSectionDescription('Settings for configuring marketplace features and functionality.')
@@ -45,7 +37,7 @@ class MarketplaceSettingForm extends SettingForm
             ->contentOnly()
             ->add('fee_per_order', 'number', [
                 'label' => 'Default Commission Fee',
-                'value' => MarketplaceHelper::getSetting('fee_per_order', 0),
+                'value' => MarketplaceHelper::getSetting('fee_per_order', 40),
                 'attr' => [
                     'min' => 0,
                     'max' => 100,
@@ -163,6 +155,7 @@ class MarketplaceSettingForm extends SettingForm
             )
             ->addOpenFieldset('vendor_pro_settings', [
                 'data-bb-collapse' => 'true',
+
                 'data-bb-trigger'  => "[name='enable_vendor_pro']",
                 'data-bb-value'    => '1',
                 'style'             => MarketplaceHelper::getSetting('enable_vendor_pro') ? '' : 'display: none;',
@@ -199,7 +192,6 @@ class MarketplaceSettingForm extends SettingForm
                     ->value(MarketplaceHelper::getSetting('hide_association_option', false))
             )
             ->addCloseFieldset('association_settings')
-            
             // Other settings...
             ->add('hide_store_phone_number', OnOffCheckboxField::class, [
                 'label' => 'Hide Store Phone Number',

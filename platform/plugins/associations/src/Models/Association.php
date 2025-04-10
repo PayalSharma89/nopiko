@@ -4,6 +4,7 @@ namespace Botble\Associations\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Botble\Marketplace\Models\Store;
 
 class Association extends Model {
     use HasFactory;
@@ -72,5 +73,9 @@ class Association extends Model {
     public function donations()
     {
         return $this->hasMany(AssociationDonation::class);
+    }
+    public function store()
+    {
+        return $this->hasOne(Store::class, 'association_id');
     }
 }

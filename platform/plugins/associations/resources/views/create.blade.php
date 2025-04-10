@@ -40,12 +40,12 @@
 
                 <div class="mb-3">
                     <label class="form-label">Address</label>
-                    <input type="text" name="address" class="form-control">
+                    <input type="text" name="address" class="form-control" >
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Commission (%)</label>
-                    <input type="number" name="commission" class="form-control" step="0.1">
+                    <input type="number" name="commission" class="form-control" step="0.1" value="40">
                 </div>
 
                 <div class="mb-3">
