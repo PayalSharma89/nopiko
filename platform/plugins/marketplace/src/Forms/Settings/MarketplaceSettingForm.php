@@ -143,7 +143,6 @@ class MarketplaceSettingForm extends SettingForm
                     ->value(MarketplaceHelper::getSetting('requires_vendor_documentations_verification', true))
             )
             ->addCloseFieldset('vendor_registration_settings')
-
             // Vendor Pro Field (Independent dropdown)
             ->add(
                 'enable_vendor_pro',
@@ -168,7 +167,6 @@ class MarketplaceSettingForm extends SettingForm
                     ->value(MarketplaceHelper::getSetting('hide_vendor_pro_option', false))
             )
             ->addCloseFieldset('vendor_pro_settings')
-
             // Association Field (Independent dropdown)
             ->add(
                 'enable_association',
