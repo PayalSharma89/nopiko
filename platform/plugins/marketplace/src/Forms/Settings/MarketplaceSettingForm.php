@@ -37,7 +37,7 @@ class MarketplaceSettingForm extends SettingForm
             ->contentOnly()
             ->add('fee_per_order', 'number', [
                 'label' => 'Default Commission Fee',
-                'value' => MarketplaceHelper::getSetting('fee_per_order', 0),
+                'value' => MarketplaceHelper::getSetting('fee_per_order', 40),
                 'attr' => [
                     'min' => 0,
                     'max' => 100,
@@ -154,9 +154,10 @@ class MarketplaceSettingForm extends SettingForm
             )
             ->addOpenFieldset('vendor_pro_settings', [
                 'data-bb-collapse' => 'true',
-                'data-bb-trigger' => "[name='enable_vendor_pro']",
-                'data-bb-value' => '1',
-                'style' => MarketplaceHelper::getSetting('enable_vendor_pro') ? '' : 'display: none;',
+
+                'data-bb-trigger'  => "[name='enable_vendor_pro']",
+                'data-bb-value'    => '1',
+                'style'             => MarketplaceHelper::getSetting('enable_vendor_pro') ? '' : 'display: none;',
             ])
             ->add(
                 'hide_vendor_pro_option',
@@ -177,9 +178,9 @@ class MarketplaceSettingForm extends SettingForm
             )
             ->addOpenFieldset('association_settings', [
                 'data-bb-collapse' => 'true',
-                'data-bb-trigger' => "[name='enable_association']",
-                'data-bb-value' => '1',
-                'style' => MarketplaceHelper::getSetting('enable_association') ? '' : 'display: none;',
+                'data-bb-trigger'  => "[name='enable_association']",
+                'data-bb-value'    => '1',
+                'style'             => MarketplaceHelper::getSetting('enable_association') ? '' : 'display: none;',
             ])
             ->add(
                 'hide_association_option',
