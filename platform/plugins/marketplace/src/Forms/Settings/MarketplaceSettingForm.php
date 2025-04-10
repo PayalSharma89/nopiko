@@ -37,7 +37,7 @@ class MarketplaceSettingForm extends SettingForm
             ->contentOnly()
             ->add('fee_per_order', 'number', [
                 'label' => 'Default Commission Fee',
-                'value' => MarketplaceHelper::getSetting('fee_per_order', 40),
+                'value' => MarketplaceHelper::getSetting('fee_per_order', 0),
                 'attr' => [
                     'min' => 0,
                     'max' => 100,
