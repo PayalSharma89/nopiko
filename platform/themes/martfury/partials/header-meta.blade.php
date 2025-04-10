@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
+
 
     {!! BaseHelper::googleFonts('https://fonts.googleapis.com/css2?family=' . urlencode(theme_option('primary_font', 'Work Sans')) . ':wght@300;400;500;600;700&display=swap') !!}
 
@@ -37,3 +39,12 @@
 
     {!! Theme::header() !!}
 </head>
+<body>
+<div id="app">
+  <install-popup></install-popup>
+</div>
+</body>
+
+    <!-- Add the script to load Vue and your app.js -->
+    <script src="{{ mix('js/app.js') }}"></script>
+    </html>

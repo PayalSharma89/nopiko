@@ -143,6 +143,7 @@ class MarketplaceSettingForm extends SettingForm
                     ->value(MarketplaceHelper::getSetting('requires_vendor_documentations_verification', true))
             )
             ->addCloseFieldset('vendor_registration_settings')
+
             // Vendor Pro Field (Independent dropdown)
             ->add(
                 'enable_vendor_pro',
@@ -154,9 +155,10 @@ class MarketplaceSettingForm extends SettingForm
             )
             ->addOpenFieldset('vendor_pro_settings', [
                 'data-bb-collapse' => 'true',
-                'data-bb-trigger' => "[name='enable_vendor_pro']",
-                'data-bb-value' => '1',
-                'style' => MarketplaceHelper::getSetting('enable_vendor_pro') ? '' : 'display: none;',
+
+                'data-bb-trigger'  => "[name='enable_vendor_pro']",
+                'data-bb-value'    => '1',
+                'style'             => MarketplaceHelper::getSetting('enable_vendor_pro') ? '' : 'display: none;',
             ])
             ->add(
                 'hide_vendor_pro_option',
@@ -166,6 +168,7 @@ class MarketplaceSettingForm extends SettingForm
                     ->value(MarketplaceHelper::getSetting('hide_vendor_pro_option', false))
             )
             ->addCloseFieldset('vendor_pro_settings')
+
             // Association Field (Independent dropdown)
             ->add(
                 'enable_association',
@@ -177,9 +180,9 @@ class MarketplaceSettingForm extends SettingForm
             )
             ->addOpenFieldset('association_settings', [
                 'data-bb-collapse' => 'true',
-                'data-bb-trigger' => "[name='enable_association']",
-                'data-bb-value' => '1',
-                'style' => MarketplaceHelper::getSetting('enable_association') ? '' : 'display: none;',
+                'data-bb-trigger'  => "[name='enable_association']",
+                'data-bb-value'    => '1',
+                'style'             => MarketplaceHelper::getSetting('enable_association') ? '' : 'display: none;',
             ])
             ->add(
                 'hide_association_option',
