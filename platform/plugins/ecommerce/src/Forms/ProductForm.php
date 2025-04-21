@@ -139,11 +139,11 @@ class ProductForm extends FormAbstract
                     );
             });
             $vendor = auth('customer')->user();
-            
+
             $associationsData = Association::query()
                 ->where('status', 1)
-                ->when($vendor->is_association, function ($query) use ($vendor) {
-                    return $query->where('vendor_id', $vendor->id); 
+                ->when($vendor && $vendor->is_association, function ($query) use ($vendor) {
+                    return $query->where('vendor_id', $vendor->id);
                 })
                 ->get(['id', 'name', 'commission']);
             
@@ -151,7 +151,7 @@ class ProductForm extends FormAbstract
                 return [
                     $association->id => $association->name . ' (Commission: ' . $association->commission . '%)',
                 ];
-            })->all();
+            })->all();            
             
             $this->add('association_id', SelectField::class, [
                 'label' => 'Association',
