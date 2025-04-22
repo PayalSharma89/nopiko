@@ -198,9 +198,7 @@ class HookServiceProvider extends ServiceProvider
 
                 add_filter('ecommerce_customer_registration_form_validation_messages', function (array $attributes): array {
                     return $attributes + [
-                        'shop_name.required_if' => __('Shop Name is required.'),
-                        'shop_phone.required_if' => __('Shop Phone is required.'),
-                        'shop_url.required_if' => __('Shop URL is required.'),
+                        
                     ];
                 }, 45);
 
@@ -328,23 +326,21 @@ class HookServiceProvider extends ServiceProvider
                         'shop_url',
                         TextField::class,
                         TextFieldOption::make()
-                            ->label(__('Shop URL'))
+                            ->label(__('Shop URL')) // Plain label, no asterisk
                             ->placeholder(__('Store URL'))
                             ->attributes([
                                 'data-url' => route('public.ajax.check-store-url'),
+                                'required' => 'required', // HTML5 validation
                             ])
                             ->prepend(
                                 sprintf(
                                     '<span class="position-absolute top-0 end-0 shop-url-status"></span><div class="input-group"><span class="input-group-text">%s</span>',
-                                    route(
-                                        'public.store',
-                                        ''
-                                    )
+                                    route('public.store', '')
                                 )
                             )
                             ->append('</div>')
-                            ->required(),
                     )
+                    
                     ->addAfter(
                         'shop_url',
                         'shop_phone',
